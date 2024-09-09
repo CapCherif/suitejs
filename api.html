@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Météo API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .weather-info {
+            display: none;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Météo en temps réel</h1>
+    <form id="weatherForm">
+        <input type="text" id="city" placeholder="Entrez une ville" required>
+        <button type="submit">Obtenir la météo</button>
+    </form>
+
+    <div class="weather-info" id="weatherInfo">
+        <h2 id="cityName"></h2>
+        <p id="temperature"></p>
+        <p id="description"></p>
+    </div>
+
+    <script>
+        const apiKey = '27811c4a32afdf7e4a59a9010466bbb5';  // Remplacez par votre clé API OpenWeatherMap
+
+        document.getElementById('weatherForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const city = document.getElementById('city').value;
+            const apiUrl = `https://api.openweathermap.org/data/3.0/onecall?timezone=${city}&appid=${apiKey}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    // if (data.cod === 200) {
+                    //     document.getElementById('cityName').textContent = `Météo à ${data.name}`;
+                    //     document.getElementById('temperature').textContent = `Température : ${data.main.temp}°C`;
+                    //     document.getElementById('description').textContent = `Description : ${data.weather[0].description}`;
+                    //     document.getElementById('weatherInfo').style.display = 'block';
+                    // } else {
+                    //     alert('Ville introuvable. Veuillez réessayer.');
+                    // }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+        });
+    </script>
+
+</body>
+</html>

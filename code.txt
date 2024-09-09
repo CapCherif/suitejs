@@ -1,0 +1,17 @@
+function BuildPost(posts){
+            var template = ""
+            posts.forEach((post)=>{
+                template += `
+                    <div class="post">
+                        <h3>${post.title}</h3>
+                        <p>${post.body}</p>
+                        <small>By ${post.userId}</small>
+                    </div>
+                `
+            })
+            document.querySelector('#result').innerHTML = template
+        }
+
+        fetch('https://jsonplaceholder.typicode.com/posts')
+        .then(response => response.json())
+        .then(posts => BuildPost(posts))
